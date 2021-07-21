@@ -1,0 +1,23 @@
+version: "2"
+
+services:
+  mysql-backup:
+    image: mobilejazz/mariadb-backup-s3
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=
+      - MYSQL_HOST=mysql
+      - S3_BUCKET_NAME=
+      - S3_ENDPOINT=s3.eu-west-1.amazonaws.com
+      - AWS_ACCESS_KEY_ID=
+      - AWS_SECRET_ACCESS_KEY=
+      - AWS_REGION=eu-west-1
+      - WAIT_SECONDS=86400
+      - RETENTION_DAYS=30
+  mysql:
+    image: qoomon/docker-host
+    cap_add: [ 'NET_ADMIN', 'NET_RAW' ]
+    ports:
+      - 3306
