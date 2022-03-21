@@ -6,7 +6,7 @@ ARG DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && \
     apt-get install -y software-properties-common gnupg && \
     apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && \
-    add-apt-repository 'deb [arch=amd64,arm64,ppc64el,s390x] https://mirrors.up.pt/pub/mariadb/repo/10.6/ubuntu focal main' && \
+    add-apt-repository 'deb [arch=amd64,arm64,ppc64el,s390x] https://mirrors.up.pt/pub/mariadb/repo/10.7/ubuntu focal main' && \
     apt-add-repository universe && \
     apt-get update && \
     apt-get install -y wget mariadb-backup && \

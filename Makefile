@@ -1,4 +1,4 @@
-VERSION=10.6
+VERSION=10.7
 
 docker:
 	docker build -t mobilejazz/mariadb-backup-s3:${VERSION} .
