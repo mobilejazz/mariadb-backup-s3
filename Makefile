@@ -1,9 +1,9 @@
-VERSION=10.7
+VERSION=10.2
 
 all: docker push
 
 docker:
-	docker build -t mobilejazz/mariadb-backup-s3 .
+	docker build --progress=plain -t mobilejazz/mariadb-backup-s3 .
 	docker tag mobilejazz/mariadb-backup-s3 mobilejazz/mariadb-backup-s3:${VERSION}
 
 push:
