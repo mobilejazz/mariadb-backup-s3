@@ -1,9 +1,9 @@
 #!/bin/bash
 if [ ! -z "$MYSQL_PASSWORD_FILE" ]; then
-    MYSQL_PASSWORD="$(cat "$MYSQL_PASSWORD_FILE")"
+    export MYSQL_PASSWORD="$(cat "$MYSQL_PASSWORD_FILE")"
 fi
 if [ ! -z "$AWS_SECRET_ACCESS_KEY_FILE" ]; then
-    AWS_SECRET_ACCESS_KEY="$(cat "$AWS_SECRET_ACCESS_KEY_FILE")"
+    export AWS_SECRET_ACCESS_KEY="$(cat "$AWS_SECRET_ACCESS_KEY_FILE")"
 fi
 
 if [ -z "$S3_BUCKET_NAME" ]; then
@@ -20,5 +20,4 @@ if [ -z "$FILENAME" ]; then
     exit 1
 fi
 
-gof3r get -b "${S3_BUCKET_NAME}" --endpoint "${S3_ENDPOINT}" -k "${FILENAME}" | lbzip2 -d | mbstream -x --directory=/var/lib/mysql
-xtrabackup --prepare --target-dir=/var/lib/mysql/
+gof3r get -b "${S3_BUCKET_NAME}" --endpoint "${S3_ENDPOINT}" -k "${FILENAME}" | lbzip2 -d | mysql --user=${MYSQL_USER} --password=${MYSQL_PASSWORD} --host=${MYSQL_HOST}

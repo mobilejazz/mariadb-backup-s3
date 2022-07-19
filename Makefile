@@ -1,4 +1,4 @@
-VERSION=xtrabackup-8.0
+VERSION=mysqldump-8.0
 
 all: docker push
 

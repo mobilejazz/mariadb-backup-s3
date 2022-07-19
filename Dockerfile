@@ -1,21 +1,10 @@
-FROM ubuntu:20.04
+FROM mysql:8.0-debian
 
 #disabling interactive shell
 ARG DEBIAN_FRONTEND=noninteractive
 # lbzip2
 RUN apt-get update && \
-    apt-get install -y software-properties-common && \
-    apt-get update && \
-    apt-add-repository universe && \
-    apt-get install -y gnupg wget curl lbzip2 && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb && \
-    dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb && \
-    rm percona-release_latest.$(lsb_release -sc)_all.deb && \
-    percona-release enable-only tools && \
-    apt-get update && \
-    apt-get install -y percona-xtrabackup-80 && \
+    apt-get install -y lbzip2 wget && \
     rm -rf /var/lib/apt/lists/*
 
 # s3gof3r
