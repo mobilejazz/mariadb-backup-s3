@@ -1,11 +1,10 @@
-VERSION=10.7
+VERSION=xtrabackup-8.0
 
 all: docker push
 
 docker:
-	docker build -t mobilejazz/mariadb-backup-s3 .
-	docker tag mobilejazz/mariadb-backup-s3 mobilejazz/mariadb-backup-s3:${VERSION}
+	docker build -t mobilejazz/mysql-backup-s3:${VERSION} .
 
 push:
-	docker push mobilejazz/mariadb-backup-s3:${VERSION}
-	docker push mobilejazz/mariadb-backup-s3
+	docker push mobilejazz/mysql-backup-s3:${VERSION}
+

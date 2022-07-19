@@ -1,4 +1,11 @@
 #!/bin/bash
+if [ ! -z "$MYSQL_PASSWORD_FILE" ]; then
+    MYSQL_PASSWORD="$(cat "$MYSQL_PASSWORD_FILE")"
+fi
+if [ ! -z "$AWS_SECRET_ACCESS_KEY_FILE" ]; then
+    AWS_SECRET_ACCESS_KEY="$(cat "$AWS_SECRET_ACCESS_KEY_FILE")"
+fi
+
 if [ -z "$MYSQL_USER" ]; then
     echo MYSQL_USER not defined >&2
     exit 1
@@ -48,7 +55,7 @@ fi
 dobackup() {
     echo doing backup now...
     FILENAME="$(date '+%Y%m%d-%H%M%S').xb.bz2"
-    mariabackup --backup --stream=xbstream --user=${MYSQL_USER} --password=${MYSQL_PASSWORD} --host="${MYSQL_HOST}" | lbzip2 | gof3r put -b "${S3_BUCKET_NAME}" --endpoint "${S3_ENDPOINT}" -k "${FILENAME}" --no-md5
+    xtrabackup --backup --stream=xbstream --user=${MYSQL_USER} --password=${MYSQL_PASSWORD} --host=${MYSQL_HOST} | lbzip2 | gof3r put -b "${S3_BUCKET_NAME}" --endpoint "${S3_ENDPOINT}" -k "${FILENAME}" --no-md5
 }
 
 if [ -z "$WAIT_SECONDS" ]; then
